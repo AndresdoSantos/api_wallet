@@ -25,4 +25,18 @@ model Card {
   function    CardFunction @default(CREDIT_DEBIT)
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @default(now())
+
+  transactions Transaction[]
+}
+
+model Transaction {
+  id                 String @id @default(uuid())
+  providerName       String
+  productPrice       Int
+  productName        String
+  productDescription String
+  productInstallment Int
+
+  card   Card   @relation(fields: [cardId], references: [id])
+  cardId String
 }
