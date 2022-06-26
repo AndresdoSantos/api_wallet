@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum CardFunction {
+  CREDIT
+  DEBIT
+  CREDIT_DEBIT
+}
+
+model Card {
+  id          String       @id @default(uuid())
+  name        String
+  number      String       @unique
+  validity    String
+  limit       Int
+  cvc         Int
+  institution String
+  flag        String
+  function    CardFunction @default(CREDIT_DEBIT)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now())
+}
